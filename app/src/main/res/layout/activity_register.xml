@@ -4,80 +4,61 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".views.LoginActivity">
+    tools:context=".views.RegisterActivity">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tool_login"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary">
-
         <TextView
-            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/app_name"
+            android:text="@string/register"
             android:layout_gravity="center"
             android:textSize="24sp"
             android:textColor="#fff"/>
-
     </android.support.v7.widget.Toolbar>
-
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="4dp"
-        android:paddingTop="10dp">
-
+        android:padding="4dp">
         <EditText
-            android:id="@+id/et_login_username"
+            android:id="@+id/et_register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/user_name"
-            android:textColorHint="#ffa500"/>
-
+            android:hint="@string/user_name"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="4dp">
-
         <EditText
-            android:id="@+id/et_login_password"
+            android:id="@+id/et_register_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textPassword"
-            android:textColorHint="#ffa500"/>
-
+            android:inputType="textPassword"/>
     </android.support.design.widget.TextInputLayout>
-    <LinearLayout
+    <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    <Button
-        android:id="@+id/btn_login_login"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_margin="20dp"
-        android:text="@string/login"
-        android:onClick="login"
-        android:textColor="@color/colorPrimary"
-        android:background="@drawable/shape_button"
-        android:layout_gravity="center_horizontal"/>
-
-        <Button
-            android:id="@+id/btn_login_register"
-            android:layout_width="wrap_content"
+        android:padding="4dp">
+        <EditText
+            android:id="@+id/et_register_password_sure"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_margin="20dp"
-            android:text="@string/register"
-            android:textColor="@color/colorPrimary"
-            android:background="@drawable/shape_button"
-            android:layout_gravity="center_horizontal"/>
-
-    </LinearLayout>
-
+            android:hint="确认密码"
+            android:inputType="textPassword"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="4dp">
+        <EditText
+            android:id="@+id/et_register_telephone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="电话"
+            android:inputType="phone"/>
+    </android.support.design.widget.TextInputLayout>
 </LinearLayout>
