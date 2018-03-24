@@ -22,6 +22,10 @@ public class BackerActivity extends AppCompatActivity {
 
     }
 
+    private void text(){
+        System.out.println("justJtxt");
+    }
+
 
 
 }
