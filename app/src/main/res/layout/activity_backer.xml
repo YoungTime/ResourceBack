@@ -5,5 +5,23 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".views.BackerActivity">
-
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:id="@+id/toolBar"
+        android:background="@color/colorPrimaryDark"
+        >
+    </android.support.v7.widget.Toolbar>
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/refresh"
+        android:layout_below="@+id/toolBar">
+        <android.support.v7.widget.RecyclerView
+            android:layout_below="@+id/toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler">
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

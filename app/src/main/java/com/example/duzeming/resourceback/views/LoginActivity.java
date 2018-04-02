@@ -1,27 +1,29 @@
 package com.example.duzeming.resourceback.views;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
-import android.support.design.widget.CoordinatorLayout;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.DisplayMetrics;
-import android.view.Display;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.anonymous.greendao.EntityManager;
+import com.example.anonymous.greendao.GreenDaoUserDao;
 import com.example.duzeming.resourceback.R;
+import com.example.duzeming.resourceback.interfaces.PostReuest;
+import com.example.duzeming.resourceback.user.GreenDaoUser;
+import com.example.duzeming.resourceback.user.User;
+import com.example.duzeming.resourceback.utils.RetrofitUtil;
 import com.example.duzeming.resourceback.utils.SnackBarMethod;
 
-import java.lang.reflect.Method;
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -62,8 +64,42 @@ public class LoginActivity extends AppCompatActivity {
         }else if (etPassword.getText().toString().isEmpty()){
             SnackBarMethod.setSnackbarColor(btnLogin,"密码不能为空");
         }else {
-            Intent intent = new Intent(LoginActivity.this,BackerActivity.class);
-            startActivity(intent);
+            RetrofitUtil retrofitUtil = new RetrofitUtil();
+            Retrofit retrofit = retrofitUtil.createRetrofitUtil("");
+            PostReuest postReuest = retrofit.create(PostReuest.class);
+            Observable<User> observable = postReuest.getCall(etUsername.getText().toString(),etPassword.getText().toString(),null,null);
+            observable.subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<User>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(@NonNull User user) {
+                            if(user.getFlag() == 1){
+                                GreenDaoUserDao userDao = EntityManager.getInstance().getUserDao();
+                                GreenDaoUser greenDaoUser = new GreenDaoUser(0l,etUsername.getText().toString());
+                                userDao.insert(greenDaoUser);
+                                Intent intent = new Intent(LoginActivity.this,BackerActivity.class);
+                                startActivity(intent);
+                            }
+                            else{
+                                Toast.makeText(LoginActivity.this, "账号密码错误", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
         }
     }
 

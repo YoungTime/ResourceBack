@@ -1,5 +1,19 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
 
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.0.0'
+    }
+}
+greendao {
+    schemaVersion 1
+    daoPackage 'com.example.anonymous.greendao'
+    targetGenDir 'src/main/java'
+}
 android {
     compileSdkVersion 23
     buildToolsVersion "25.0.1"
@@ -10,6 +24,11 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+    }
+    greendao {
+        schemaVersion 1  //版本
+
+        targetGenDir 'src/main/java' //生成文件路径
     }
     buildTypes {
         release {
@@ -24,7 +43,16 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.android.support:design:23.1.0'
+    compile 'com.facebook.fresco:fresco:0.12.0'
     compile 'com.android.support:recyclerview-v7:23.0.1'
     compile 'com.nineoldandroids:library:2.4.0'
     compile 'com.android.support:design:23.0.1'
+    compile 'com.jakewharton:butterknife:7.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.okhttp3:okhttp:3.1.2'
+    compile 'org.greenrobot:greendao:3.0.1'
+    compile 'org.greenrobot:greendao-generator:3.0.0'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }
