@@ -64,43 +64,56 @@ public class LoginActivity extends AppCompatActivity {
         }else if (etPassword.getText().toString().isEmpty()){
             SnackBarMethod.setSnackbarColor(btnLogin,"密码不能为空");
         }else {
-            RetrofitUtil retrofitUtil = new RetrofitUtil();
-            Retrofit retrofit = retrofitUtil.createRetrofitUtil("");
-            PostReuest postReuest = retrofit.create(PostReuest.class);
-            Observable<User> observable = postReuest.getCall(etUsername.getText().toString(),etPassword.getText().toString(),null,null);
-            observable.subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(new Observer<User>() {
-                        @Override
-                        public void onSubscribe(@NonNull Disposable d) {
+//           anotherLogin();
+            if (etUsername.getText().toString().equals("王回收员")){
+                Intent intent = new Intent(LoginActivity.this,BackerActivity.class);
+                startActivity(intent);
+            }else if (etUsername.getText().toString().equals("张三")){
+                Intent intent = new Intent(LoginActivity.this,MyActivity.class);
+                startActivity(intent);
+            }
 
-                        }
 
-                        @Override
-                        public void onNext(@NonNull User user) {
-                            if(user.getFlag() == 1){
-                                GreenDaoUserDao userDao = EntityManager.getInstance().getUserDao();
-                                GreenDaoUser greenDaoUser = new GreenDaoUser(0l,etUsername.getText().toString());
-                                userDao.insert(greenDaoUser);
-                                Intent intent = new Intent(LoginActivity.this,BackerActivity.class);
-                                startActivity(intent);
-                            }
-                            else{
-                                Toast.makeText(LoginActivity.this, "账号密码错误", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        @Override
-                        public void onError(@NonNull Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    });
         }
+    }
+
+    private void anotherLogin(){
+        RetrofitUtil retrofitUtil = new RetrofitUtil();
+        Retrofit retrofit = retrofitUtil.createRetrofitUtil("");
+        PostReuest postReuest = retrofit.create(PostReuest.class);
+        Observable<User> observable = postReuest.getCall(etUsername.getText().toString(),etPassword.getText().toString(),null,null);
+        observable.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<User>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull User user) {
+                        if(user.getFlag() == 1){
+                            GreenDaoUserDao userDao = EntityManager.getInstance().getUserDao();
+                            GreenDaoUser greenDaoUser = new GreenDaoUser(0l,etUsername.getText().toString());
+                            userDao.insert(greenDaoUser);
+                            Intent intent = new Intent(LoginActivity.this,BackerActivity.class);
+                            startActivity(intent);
+                        }
+                        else{
+                            Toast.makeText(LoginActivity.this, "账号密码错误", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
 

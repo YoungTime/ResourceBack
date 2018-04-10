@@ -16,6 +16,24 @@ public class Post {
     private String money;
     private int flag;
     private String time;
+    private String level;
+    private String Address;
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
+    }
 
     public User getUser() {
         return user;
